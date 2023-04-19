@@ -32,57 +32,66 @@ contract AttendanceManagement {
         );
     }
 
- 
-
     function getUser(address _address) public view returns (string memory) {
         return users[_address].name;
     }
 
-
-
     struct Attendance {
         string branch;
         string division;
+        string subject;
         string timestamp;
         string lectureStartTime;
         string lectureEndTime;
+        uint256 totalStudents;
         uint256[] rollNums;
     }
 
     mapping(uint256 => Attendance) public attendances;
     uint256 public attendanceCount = 0;
 
-
     function addAttendance(
-        string memory _branch, 
-        string memory _division, 
+        string memory _branch,
+        string memory _division,
+        string memory _subject,
         string memory _timestamp,
         string memory _lectureStartTime,
         string memory _lectureEndTime,
+        uint256 _totalStudents,
         uint256[] memory _rollNums
     ) public {
         attendanceCount++;
         attendances[attendanceCount] = Attendance(
             _branch,
             _division,
+            _subject,
             _timestamp,
             _lectureStartTime,
             _lectureEndTime,
+            _totalStudents,
             _rollNums
         );
     }
 
-    function getAttendance(uint256 _att) public view returns (
-        string memory branch,
-        string memory division,
-        string memory timestamp,
-        string memory lectureStartTime,
-        string memory lectureEndTime,
-        uint256[] memory rollNums
-    ) {
+    function getAttendance(
+        uint256 _att
+    )
+        public
+        view
+        returns (
+            string memory branch,
+            string memory division,
+            string memory subject,
+            string memory timestamp,
+            string memory lectureStartTime,
+            string memory lectureEndTime,
+            uint256[] memory rollNums
+        )
+    {
         return (
             attendances[_att].branch,
             attendances[_att].division,
+            attendances[_att].subject,
             attendances[_att].timestamp,
             attendances[_att].lectureStartTime,
             attendances[_att].lectureEndTime,
@@ -90,7 +99,15 @@ contract AttendanceManagement {
         );
     }
 
-    function getAttendanceRollNums (uint256 _attendanceId) public view returns (uint256[] memory) {
+    function getTotalStudents(
+        uint256 _attendanceId
+    ) public view returns (uint256) {
+        return attendances[_attendanceId].totalStudents;
+    }
+
+    function getAttendanceRollNums(
+        uint256 _attendanceId
+    ) public view returns (uint256[] memory) {
         return attendances[_attendanceId].rollNums;
-    }   
+    }
 }

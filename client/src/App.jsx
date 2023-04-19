@@ -1,13 +1,28 @@
 import CheckHistory from "./components/CheckHistory";
 import Main from "./components/Main";
-// import MainScreen from "./components/MainScreen";
+import ShowAttendance from "./components/ShowAttendance";
 import { EthProvider } from "./contexts/EthContext";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Main />,
+  },
+  {
+    path: "/history",
+    element: <CheckHistory />,
+  },
+  {
+    path: "/attendance/:id",
+    element: <ShowAttendance />,
+  },
+]);
 
 function App() {
   return (
     <EthProvider>
-      <Main />
-      <CheckHistory />
+      <RouterProvider router={router} />
     </EthProvider>
   );
 }

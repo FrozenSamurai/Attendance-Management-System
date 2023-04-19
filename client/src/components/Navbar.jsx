@@ -1,6 +1,7 @@
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const NavBar = ({ user, setShowModal }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,12 +46,12 @@ const NavBar = ({ user, setShowModal }) => {
       </div>
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-base lg:flex-grow">
-          <div
-            // href="#responsive-header"
+          <Link
+            to="history"
             className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-4"
           >
             History
-          </div>
+          </Link>
         </div>
         {setShowModal !== null ? (
           <div>

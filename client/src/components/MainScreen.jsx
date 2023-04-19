@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles.css";
 import { useEth } from "../contexts/EthContext";
 import Navbar from "./Navbar";
@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 const MainScreen = () => {
   const [numOfStudents, setNumOfStudents] = React.useState(0);
   const [branch, setBranch] = React.useState("IT");
+  const [subject, setSubject] = useState("");
   const [divi, setDivi] = React.useState("A");
   const [startTime, setStartTime] = React.useState("");
   const [endTime, setEndTime] = React.useState("");
@@ -27,10 +28,11 @@ const MainScreen = () => {
       .addAttendance(
         branch,
         divi,
+        subject,
         time.toString(),
         startTime,
         endTime,
-        // numOfStudents,
+        numOfStudents,
         attendanceList
       )
       .send({ from: state.accounts[0] })
@@ -88,6 +90,22 @@ const MainScreen = () => {
           <option value="B">B</option>
           <option value="C">C</option>
         </select>
+
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="subject"
+        >
+          Subject
+        </label>
+        <input
+          id="subject"
+          type="text"
+          placeholder="Start Time"
+          onChange={(e) => {
+            setSubject(e.target.value);
+          }}
+          className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+        />
 
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
